@@ -20,8 +20,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <style type="text/css">
+        :root {
+            --header: #f57e7a;
+        }
         .navbar {
-            background: #f57e7a !important;
+            background: var(--header) !important;
         }
 
         .navbar-light .navbar-brand {
@@ -31,6 +34,20 @@
 
         .navbar-light .navbar-nav .nav-link {
             color: #fff;
+        }
+
+        .card-header {
+            background: var(--header);
+            text-align-last: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+        }
+
+        button {
+            background: var(--header) !important;
+            border-color: var(--header) !important;
+            border-width: 1px;
         }
     </style>
 </head>
@@ -60,7 +77,7 @@
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Sign Up') }}</a>
                                 </li>
                             @endif
                         @else
