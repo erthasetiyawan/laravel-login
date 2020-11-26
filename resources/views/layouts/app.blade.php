@@ -18,10 +18,25 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style type="text/css">
+        .navbar {
+            background: #f57e7a !important;
+        }
+
+        .navbar-light .navbar-brand {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white text-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
