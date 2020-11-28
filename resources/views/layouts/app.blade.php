@@ -44,11 +44,17 @@
             font-size: 1.5rem;
         }
 
-        button {
+        .pink {
             background: var(--header) !important;
             border-color: var(--header) !important;
             border-width: 1px;
         }
+
+        .ungu {
+            background: purple !important;
+            border-color: purple !important;
+            border-width: 1px;
+        }        
     </style>
 </head>
 <body>
@@ -81,6 +87,9 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('profile') }}">Profile</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -108,5 +117,6 @@
             @yield('content')
         </main>
     </div>
+    @stack('scripts')
 </body>
 </html>
