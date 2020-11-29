@@ -54,7 +54,13 @@
             background: purple !important;
             border-color: purple !important;
             border-width: 1px;
-        }        
+        }      
+
+        #uploadlah:hover {
+            background: #000 !important;
+            color: #fff;
+            transition: 1s;
+        }  
     </style>
 </head>
 <body>

@@ -6,7 +6,7 @@
     		<h2><strong>PROFILE</strong></h2>
     	</div>
         <div class="col-md-3">
-            <div id="uploadlah" style="width: 100%;padding:7.5rem;height:auto;border-radius: 3rem;background: #ddd;"></div>
+            <div id="image" style="width: 100%;padding:7.5rem;height:auto;border-radius: 3rem;background: #ddd;"></div>
             <div class="text-center">
                 <b-link class="btn btn-primary ungu mt-4" href="{{ url('profile/ubah') }}">Edit Profile</b-link>
             </div>
@@ -31,9 +31,9 @@
 
 @push('scripts')
 <script>
-document.getElementById('uploadlah').style.backgroundImage = 'url(<?= asset(Storage::url(Auth::user()->photo)); ?>)';
-document.getElementById('uploadlah').style.backgroundPosition = 'center center';
-document.getElementById('uploadlah').style.backgroundSize = 'cover';
+document.getElementById('image').style.backgroundImage = 'url(<?= asset(Storage::url(Auth::user()->photo)); ?>)';
+document.getElementById('image').style.backgroundPosition = 'center center';
+document.getElementById('image').style.backgroundSize = 'cover';
 
 </script>
 @endpush
