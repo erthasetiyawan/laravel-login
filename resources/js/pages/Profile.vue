@@ -52,17 +52,17 @@ export default {
     },
     methods: {
         async getData() {
-            const response = await axios.post('/api/profile',{}, {
+            const response = await axios.get('/api/user', {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token'),
                 }
             });
-            const data = response.data.data
+            const data = response.data
             this.name = data.name
             this.email = data.email
             this.phone = data.phone
-            this.date = data.date
-            this.photo = data.photo
+            this.date = data.date_of_birth
+            this.photo = '/storage/' + data.photo
         }
     },
     created() {
