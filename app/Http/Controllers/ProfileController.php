@@ -18,11 +18,6 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         return view('profile.index');
@@ -80,22 +75,21 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-
-
-
+        $token = $request->bearerToken();
+        $user = DB::table('users')->where('api_token', $token)->first();
         $data = $request->validate([
                             'name' => 'required|max:255',
                             'email' => 'required',
                             'password' => 'nullable|min:6',
                             'phone' => 'nullable',
                             'date' => 'nullable'
-                        ]);
+                        ]);       
 
-        $images = Auth::user()->photo;
+        $images = $user->photo;
 
         if ($request->hasFile('file')) {
             
-            @unlink(storage_path('app/public/' . Auth::user()->photo));
+            @unlink(storage_path('app/public/' . $user->photo));
             
             $file = ($request->file('file'));
 
@@ -107,31 +101,32 @@ class ProfileController extends Controller
 
         if (empty($request->password)) {
             $query = DB::table('users')->where([
-                        'id' => Auth::user()->id
-                    ])->update([
-                        'name' => $request->name,
-                        'email' => $request->email,
-                        'phone' => $request->phone,
-                        'date_of_birth' => $request->date,
-                        'photo' => $images
-                    ]);
-            return redirect()->to('profile/ubah')->with('message', 'Profile success updated!');
+                    'id' => $user->id
+                ])->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'date_of_birth' => empty($request->date) ? date('Y-m-d') : $request->date,
+                    'photo' => $images
+                ]);
+    
         } else {
             $query = DB::table('users')->where([
-                        'id' => Auth::user()->id
-                    ])->update([
-                        'name' => $request->name,
-                        'password' => Hash::make($request->password),
-                        'email' => $request->email,
-                        'phone' => $request->phone,
-                        'date_of_birth' => $request->date,
-                        'photo' => $images
-                    ]);
-            Auth::logout();
+                'id' => $user->id
+                ])->update([
+                    'name' => $request->name,
+                    'password' => Hash::make($request->password),
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'date_of_birth' => empty($request->date) ? date('Y-m-d') : $request->date,
+                    'photo' => $images
+                ]);
         }
 
-        return redirect()->to('profile/ubah')->with('message', 'Profile success updated!');
-
+        return response()->json([
+            'status' => 'success',
+            'data' => 'Update successfully!'
+        ], 200);
     }
 
     /**
