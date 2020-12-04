@@ -58,7 +58,7 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
         $auth = $request->except(['remember_me']);
-        if (auth()->attempt($auth, $request->remember_me)) {
+        if (auth()->once($auth, $request->remember_me)) {
             auth()->user()->update(['api_token' => Str::random(40)]);
             return response()->json(['status' => 'success', 'data' => auth()->user()->api_token], 200);
         }
